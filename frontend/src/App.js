@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Login from './components/login';
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,6 +30,9 @@ const App = ()=>{
       <Switch>
         <Route path='/' exact>
           <Home />
+        </Route>
+        <Route path='/login' exact>
+          <Login />
         </Route>
       </Switch>
     </Router>
