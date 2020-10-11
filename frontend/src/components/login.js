@@ -1,59 +1,72 @@
 import React from 'react';
 import './login.css';
-import Home from './Home';
+import {useSelector,useDispatch} from 'react-redux';
+import {userBuilder,passwordBuilder} from '../actions';
 
 
-const Login = ()=>(
-
-    
+const Login = ()=>{
+  const userData = useSelector(state=>state.userNameReducer);
+  const passData = useSelector(state=>state.passwordReducer);
+  const formValidate = e=>{
+    e.preventDefault();
+    const data = {
+      userData,
+      passData
+    }
+    console.log(data);
+    dispatch(userBuilder(''));
+    dispatch(passwordBuilder(''));
+  }
+  const dispatch = useDispatch();
+    return(
         <div className="">
-<div class="pen-title">
-  <h1>Material Login Form</h1><span>Pen <i class='fa fa-code'></i> by <a href='http://andytran.me'>Andy Tran</a></span>
+<div className="pen-title">
+  <h1>Material Login Form</h1><span>Pen <i className='fa fa-code'></i> by <a href='http://andytran.me'>Andy Tran</a></span>
 </div>
-<div class="rerun"><a href="">Rerun Pen</a></div>
-<div class="container">
-  <div class="card"></div>
-  <div class="card">
-    <h1 class="title">Login</h1>
+<div className="rerun">Rerun Pen</div>
+<div className="container">
+  <div className="card"></div>
+  <div className="card">
+    <h1 className="title">Login</h1>
     <form>
-      <div class="input-container">
-        <input type="#{type}" id="#{label}" required="required"/>
-        <label for="#{label}">Username</label>
-        <div class="bar"></div>
+      <div className="input-container">
+        <input onChange={e=>dispatch(userBuilder(e.target.value))} type="#{type}" id="#{label}" required="required" value={userData}  />
+        <label>Username</label>
+        <div className="bar"></div>
       </div>
-      <div class="input-container">
-        <input type="#{type}" id="#{label}" required="required"/>
-        <label for="#{label}">Password</label>
-        <div class="bar"></div>
+      <div className="input-container">
+        <input onChange={e=>dispatch(passwordBuilder(e.target.value))} type="#{type}" id="#{label}" required="required" value={passData} />
+        <label>Password</label>
+        <div className="bar"></div>
       </div>
-      <div class="button-container">
-        <button><span>Go</span></button>
+      <div className="button-container">
+        <button onClick={formValidate}><span>Go</span></button>
       </div>
       
     </form>
   </div>
-  <div class="card alt">
-    <div class="toggle"></div>
-    <h1 class="title">Register
-      <div class="close"></div>
+  <div className="card alt">
+    <div className="toggle"></div>
+    <h1 className="title">Register
+      <div className="close"></div>
     </h1>
     <form>
-      <div class="input-container">
+      <div className="input-container">
         <input type="#{type}" id="#{label}" required="required"/>
-        <label for="#{label}">Username</label>
-        <div class="bar"></div>
+        <label>Username</label>
+        <div className="bar"></div>
       </div>
-      <div class="input-container">
+      <div className="input-container">
         <input type="#{type}" id="#{label}" required="required"/>
-        <label for="#{label}">Password</label>
-        <div class="bar"></div>
+        <label>Password</label>
+        <div className="bar"></div>
       </div>
-      <div class="input-container">
+      <div className="input-container">
         <input type="#{type}" id="#{label}" required="required"/>
-        <label for="#{label}">Repeat Password</label>
-        <div class="bar"></div>
+        <label>Repeat Password</label>
+        <div className="bar"></div>
       </div>
-      <div class="button-container">
+      <div className="button-container">
         <button><span>Next</span></button>
       </div>
     </form>
@@ -61,7 +74,7 @@ const Login = ()=>(
 </div>
 </div>
 
-    
-)
+  )
+}
   
   export default Login;

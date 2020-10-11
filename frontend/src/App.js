@@ -23,7 +23,7 @@ const App = ()=>{
         </ul>
         </div>
         <div className="auth">
-          <h3 className='login'>Login</h3>
+          <Link style={{textDecoration:'none'}} to='/login'><h3 className='login'>Login</h3></Link>
           <h3 className='signup'>Signup</h3>
         </div>
       </nav>
