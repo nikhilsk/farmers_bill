@@ -2,17 +2,21 @@ import React from 'react';
 import './App.css';
 import Login from './components/login';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+
+
 import Home from './components/Home';
+import PrivateRouts from './privateRout';
+import FarmerPage from './components/FarmerPage';
+
 
 const App = ()=>{
 
   return(
-    <Router>
+    <div className="">
       <nav>
         <div className="comp-1">
         <h1 className="title-main">Faryeer</h1>
@@ -24,18 +28,17 @@ const App = ()=>{
         </div>
         <div className="auth">
           <Link style={{textDecoration:'none'}} to='/login'><h3 className='login'>Login</h3></Link>
-          <h3 className='signup'>Signup</h3>
+          <Link style={{textDecoration:'none'}} to='/signup'><h3 className='signup'>Signup</h3></Link>
         </div>
       </nav>
       <Switch>
-        <Route path='/' exact>
-          <Home />
-        </Route>
-        <Route path='/login' exact>
-          <Login />
-        </Route>
+        <Route path='/' component={Home} exact />
+        <Route path='/login' render={()=>(<Login type='login' />)} />
+        <Route path='/signup' render={()=>(<Login type='signup' />)} />
+        <Route path='/signout' render={()=>localStorage.clear()} />
+        <PrivateRouts path='/farmer' component={FarmerPage} />
       </Switch>
-    </Router>
+      </div>
   )
 }
 

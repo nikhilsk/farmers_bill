@@ -1,19 +1,38 @@
 import React from 'react';
+
 import './login.css';
 import {useSelector,useDispatch} from 'react-redux';
 import {userBuilder,passwordBuilder} from '../actions';
 
+// sending requests
+import axios from 'axios';
 
-const Login = ()=>{
+
+const Login = ({type})=>{
   const userData = useSelector(state=>state.userNameReducer);
   const passData = useSelector(state=>state.passwordReducer);
-  const formValidate = e=>{
+  const formValidate = async e=>{
     e.preventDefault();
-    const data = {
-      userData,
-      passData
-    }
-    console.log(data);
+    const data1 = {
+      username:userData,
+      password:passData
+    };
+    console.log(data1);
+    // req to server
+   await axios.post(`http://localhost:5000/loginRout/${type}`,data1)
+   .then(response=>{
+     console.log(response.headers);
+      const data = {'auth-token':response.headers['auth-token']}
+      if(response.status===400 || data["auth-token"]==="Invalid login/pass"){
+        console.log(data["auth-token"]);
+      }
+      else{
+        localStorage.setItem('user',JSON.stringify(data));
+        localStorage.setItem('_id',JSON.stringify(response.headers['_id']));
+      }
+   })
+   .catch(err=>console.log(err));
+
     dispatch(userBuilder(''));
     dispatch(passwordBuilder(''));
   }
@@ -27,7 +46,7 @@ const Login = ()=>{
 <div className="container">
   <div className="card"></div>
   <div className="card">
-    <h1 className="title">Login</h1>
+    <h1 className="title">{type}</h1>
     <form>
       <div className="input-container">
         <input onChange={e=>dispatch(userBuilder(e.target.value))} type="#{type}" id="#{label}" required="required" value={userData}  />
@@ -77,4 +96,4 @@ const Login = ()=>{
   )
 }
   
-  export default Login;
+export default Login;
