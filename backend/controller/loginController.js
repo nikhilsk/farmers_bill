@@ -26,12 +26,12 @@ exports.LoginHandler = async (req,res,next)=>{
     // create token
     const token = jwt.sign({_id:userFound._id},credential.TOKEN_SECRET);
     res.cookie('auth-token', token, { expires: new Date(Date.now() + 300000), httpOnly: true });
+    
 
     res
     .header('Access-Control-Expose-Headers', 'auth-token')
     //.header('Access-Control-Expose-Headers', '_id')
     .header('auth-token', token)
-    .header('_id',userFound._id)
     .json({ message: 'Logged In'})
 }
 
@@ -40,7 +40,7 @@ exports.SignupHandler = async(req,res,next)=>{
     const validationObject = new Validation(req.body);
    const error =  validationObject.validateSignup();
    if(error){
-       return res.status(400).send(error.details[0].message);
+       return res.send(error.details[0].message);
    }
    // creating the new user...
    const response = await validationObject.CreateUser();

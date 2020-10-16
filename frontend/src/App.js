@@ -33,7 +33,7 @@ const App = ()=>{
       </nav>
       <Switch>
         <Route path='/' component={Home} exact />
-        <Route path='/login' render={()=>(<Login type='login' />)} />
+        <Route path='/login' render={()=>(<Login xyz="fdgs" type='login' />)} />
         <Route path='/signup' render={()=>(<Login type='signup' />)} />
         <Route path='/signout' render={()=>localStorage.clear()} />
         <PrivateRouts path='/farmer' component={FarmerPage} />

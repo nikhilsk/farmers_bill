@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -13,6 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
+ 
 
 function Copyright() {
   return (
@@ -59,10 +62,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [];
 
 const FarmerPage = ()=>{
+  const [items,setitem]=useState("");
+
+  useEffect(()=>{
+   const fun = async()=>{
+      await axios.get("http://localhost:5000/productRout/getPrds")
+      .then(res=>console.log(res))
+      .catch(err=>console.log(err))
+    }
+    fun()
+  },[]);
+  
   const classes = useStyles();
+  const addpro = ()=>{
+    setitem("");
+  }
 
   return (
     <React.Fragment>
@@ -116,7 +133,7 @@ const FarmerPage = ()=>{
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      {card}
                     </Typography>
                     <Typography>
                       This is a media card. You can use this section to describe the content.
@@ -129,6 +146,7 @@ const FarmerPage = ()=>{
                     <Button size="small" color="primary">
                       Edit
                     </Button>
+                    
                   </CardActions>
                 </Card>
               </Grid>
@@ -144,6 +162,8 @@ const FarmerPage = ()=>{
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
           Something here to give the footer a purpose!
         </Typography>
+        <Button onClick={addpro} type="submit">Add product</Button>
+        <TextField type="text" value={items} onChange={(e) => setitem(e.target.value) } />
         <Copyright />
       </footer>
       {/* End footer */}

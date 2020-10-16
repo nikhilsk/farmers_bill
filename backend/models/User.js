@@ -1,3 +1,4 @@
+const { array } = require("@hapi/joi");
 const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
   _id: {
@@ -23,7 +24,10 @@ const userSchema = mongoose.Schema({
   },
   userType:{
     type:String,
+  },
+  productlist:{
+    type:Array,
+    default:[]
   }
 });
-
 module.exports = mongoose.model("User", userSchema);

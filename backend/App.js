@@ -8,6 +8,7 @@ const cookie = require('cookie-parser');
 
 
 const {loginRout} = require('./router/loginRouts');
+const {productRout} = require('./router/getProductRout');
 const mongooseConnect = require('./controller/mongooseCon');
 const {privateRout} = require('./router/privateRouts');
 
@@ -28,6 +29,7 @@ mongoose.Promise = global.Promise;
 //     next();
 // })
 app.use('/loginRout',loginRout);
+app.use('/productRout',productRout);
 app.use('/dummyRout',(req,res,next)=>{
     console.log(req.cookies['auth-token']);
     res.send("ok!!");

@@ -11,7 +11,7 @@ import axios from 'axios';
 const Login = ({type})=>{
   const userData = useSelector(state=>state.userNameReducer);
   const passData = useSelector(state=>state.passwordReducer);
-  const formValidate = async e=>{
+ const formValidate = async e=>{
     e.preventDefault();
     const data1 = {
       username:userData,
