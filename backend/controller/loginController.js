@@ -29,7 +29,7 @@ exports.LoginHandler = async (req,res,next)=>{
 
     res
     .header('Access-Control-Expose-Headers', 'auth-token')
-    .header('Access-Control-Expose-Headers', '_id')
+    //.header('Access-Control-Expose-Headers', '_id')
     .header('auth-token', token)
     .header('_id',userFound._id)
     .json({ message: 'Logged In'})
