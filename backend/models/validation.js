@@ -20,7 +20,8 @@ class Validation{
         return error;
     } 
     async CreateUser(){
-        const existingUser = await User.find({username:this.param.username}).exec();
+        const existingUser = await User.find({username:this.param.username}).exec()
+        console.log(existingUser);
         if(existingUser.length>0){
             return "user Exists";
         }
